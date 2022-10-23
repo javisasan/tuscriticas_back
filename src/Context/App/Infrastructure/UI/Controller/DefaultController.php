@@ -12,5 +12,10 @@ class DefaultController extends AbstractController
     {
         return new JsonResponse(['status' => 'ok', 'asdf' => 'fdsfsdfsdf']);
     }
+
+    public function getMovie(): Response
+    {
+        include_once('../../External/TMDb.php');
+    }
 }
 
