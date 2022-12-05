@@ -1,0 +1,48 @@
+framework:
+    messenger:
+        # reset services after consuming messages
+        reset_on_message: true
+        default_bus: messenger.bus.commands
+
+        # after retrying, messages will be sent to the "failed" transport
+#        failure_transport: failed
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            # failed: 'doctrine://default?queue_name=failed'
+            # sync: 'sync://'
+#            doctrine_async_email_notification:
+#                dsn: '%env(string:MESSENGER_DOCTRINE_TRANSPORT_DSN)%'
+#                options:
+#                    queue_name: 'email_notification'
+#                retry_strategy:
+#                    max_retries: 3
+#                    # milliseconds delay
+#                    delay: 10000
+#                    # causes the delay to be higher before each retry
+#                    multiplier: 2
+#
+#            failed:
+#                dsn: 'doctrine://default?queue_name=failed'
+#                retry_strategy:
+#                    max_retries: 300
+
+        routing:
+
+        buses:
+            messenger.bus.commands:
+                middleware:
+                    - CommonPlatform\SharedKernel\Infrastructure\Messenger\Middleware\DispatchesEvents
+                    - CommonPlatform\SharedKernel\Infrastructure\Messenger\Middleware\FailureCatcherMiddleware
+
+            messenger.bus.queries:
+                middleware:
+                    - CommonPlatform\SharedKernel\Infrastructure\Messenger\Middleware\FailureCatcherMiddleware
+
+            messenger.bus.events:
+                default_middleware: allow_no_handlers
+                middleware:
+                    #- logging
+                    - CommonPlatform\SharedKernel\Infrastructure\Messenger\Middleware\DispatchesEvents
+                    - CommonPlatform\SharedKernel\Infrastructure\Messenger\Middleware\FailureCatcherMiddleware

@@ -2,3 +2,7 @@ index:
      path: /
      controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\DefaultController::index
 
+get_movie_test:
+     path: /getmovietest
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\DefaultController::getMovie
+

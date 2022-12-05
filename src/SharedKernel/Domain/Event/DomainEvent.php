@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SharedKernel\Domain\Event;
+namespace CommonPlatform\SharedKernel\Domain\Event;
 
 interface DomainEvent
 {
