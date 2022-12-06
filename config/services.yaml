@@ -4,12 +4,17 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.tmdb_key: '%env(TMDB_KEY)%'
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+        bind:
+            $commandBus: '@messenger.bus.commands'
+            $queryBus: '@messenger.bus.queries'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -26,3 +31,34 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    
+    bus.commands:
+        alias: 'messenger.bus.commands'
+        public: true
+
+    bus.queries:
+        class: 'CommonPlatform\SharedKernel\Infrastructure\Messenger\Bus\QueryBus'
+        public: true
+
+    catalog_query_handlers:
+        namespace: CommonPlatform\Context\App\Application\Query\
+        resource: '%kernel.project_dir%/src/Context/App/Application/Query/*QueryHandler.php'
+        public: true
+        tags:
+            - { name: messenger.message_handler, bus: messenger.bus.queries  }
+
+    app_interfaces:
+        namespace: CommonPlatform\SharedKernel\Application\Repository\
+        resource: '%kernel.project_dir%/src/SharedKernel/Application/Repository/*Interface.php'
+        public: true
+
+    app_repos:
+        namespace: CommonPlatform\SharedKernel\Infrastructure\Repository\
+        resource: '%kernel.project_dir%/src/SharedKernel/Infrastructure/Repository/*Repository.php'
+        public: true
+
+#    catalog_user_repositories:
+#        namespace: App\Catalog\Infrastructure\Persistence\Doctrine\Repository\
+#        resource: '%kernel.project_dir%/src/Catalog/Infrastructure/Persistence/Doctrine/Repository/*Repository.php'
+#        public: true
+
