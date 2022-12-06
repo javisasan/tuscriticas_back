@@ -53,8 +53,8 @@ services:
         public: true
 
     app_repos:
-        namespace: CommonPlatform\SharedKernel\Infrastructure\Repository\
-        resource: '%kernel.project_dir%/src/SharedKernel/Infrastructure/Repository/*Repository.php'
+        namespace: CommonPlatform\SharedKernel\Infrastructure\TmdbApi\Repository\
+        resource: '%kernel.project_dir%/src/SharedKernel/Infrastructure/TmdbApi/Repository/*Repository.php'
         public: true
 
 #    catalog_user_repositories:

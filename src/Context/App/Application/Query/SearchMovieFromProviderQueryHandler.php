@@ -13,9 +13,15 @@ class SearchMovieFromProviderQueryHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(SearchMovieFromProviderQuery $query): array
+    public function __invoke(SearchMovieFromProviderQuery $query): SearchMovieFromProviderQueryHandlerResponse
     {
-        return $this->repository->searchMovie($query->getTitle());
+        $response = $this->repository->searchMovie($query->getTitle(), $query->getPage());
+
+        return new SearchMovieFromProviderQueryHandlerResponse(
+            $response->getData(),
+            $response->getPage(),
+            $response->getTotalPages(),
+            $response->getTotalResults()
+        );
     }
 }
-
