@@ -40,7 +40,15 @@ services:
         class: 'CommonPlatform\SharedKernel\Infrastructure\Messenger\Bus\QueryBus'
         public: true
 
-    catalog_query_handlers:
+
+    app_command_handlers:
+        namespace: CommonPlatform\Context\App\Application\Command\
+        resource: '%kernel.project_dir%/src/Context/App/Application/Command/*CommandHandler.php'
+        public: true
+        tags:
+            - { name: messenger.message_handler, bus: messenger.bus.commands  }
+
+    app_query_handlers:
         namespace: CommonPlatform\Context\App\Application\Query\
         resource: '%kernel.project_dir%/src/Context/App/Application/Query/*QueryHandler.php'
         public: true
@@ -52,13 +60,14 @@ services:
         resource: '%kernel.project_dir%/src/SharedKernel/Application/Repository/*Interface.php'
         public: true
 
-    app_repos:
+    app_repositories:
+        namespace: CommonPlatform\Context\App\Infrastructure\Persistence\Doctrine\Repository\
+        resource: '%kernel.project_dir%/src/Context/App/Infrastructure/Persistence/Doctrine/Repository/*Repository.php'
+        public: true
+
+    provider_repository:
         namespace: CommonPlatform\SharedKernel\Infrastructure\TmdbApi\Repository\
         resource: '%kernel.project_dir%/src/SharedKernel/Infrastructure/TmdbApi/Repository/*Repository.php'
         public: true
 
-#    catalog_user_repositories:
-#        namespace: App\Catalog\Infrastructure\Persistence\Doctrine\Repository\
-#        resource: '%kernel.project_dir%/src/Catalog/Infrastructure/Persistence/Doctrine/Repository/*Repository.php'
-#        public: true
 

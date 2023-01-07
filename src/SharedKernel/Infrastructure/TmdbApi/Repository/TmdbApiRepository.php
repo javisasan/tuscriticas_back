@@ -24,7 +24,7 @@ class TmdbApiRepository implements ProviderRepositoryInterface
         
         $this->initHandler();
 
-        $searchResponse = $this->handler->searchMovie($title, $page, $adult = FALSE, $year = NULL, $lang = 'es');
+        $searchResponse = $this->handler->searchMovie($title, $page, FALSE, NULL, 'es');
 
         if (!empty($searchResponse)) {
             foreach ($searchResponse['results'] as $movie) {
@@ -40,5 +40,25 @@ class TmdbApiRepository implements ProviderRepositoryInterface
         }
 
         return new SearchMovieResponseDto($searchMovieList, $searchResponse['page'], $searchResponse['total_pages'], $searchResponse['total_results']);
+    }
+
+    public function findMovieByProviderId(string $providerId): ?SearchMovieDto
+    {
+        $this->initHandler();
+
+        $searchResponse = $this->handler->getMovie($providerId, 'es');
+
+        if (empty($searchResponse)) {
+            return null;
+        }
+
+        return new SearchMovieDto(
+            $searchResponse['id'],
+            $searchResponse['title'],
+            $searchResponse['original_title'],
+            $searchResponse['release_date'],
+            $searchResponse['overview'],
+            $searchResponse['poster_path'],
+        );
     }
 }

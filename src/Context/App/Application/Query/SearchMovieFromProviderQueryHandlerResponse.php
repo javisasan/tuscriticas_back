@@ -47,7 +47,7 @@ class SearchMovieFromProviderQueryHandlerResponse
                     'external_id' => $movie->getId(),
                     'title' => $movie->getTitle(),
                     'original_title' => $movie->getOriginalTitle(),
-                    'release_date' => $movie->getReleaseDate(),
+                    'release_date' => $movie->getReleaseDate()->format('Y-m-d'),
                     'overview' => $movie->getOverview(),
                     'image' => $movie->getImage(),
                 ];
