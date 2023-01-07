@@ -1,8 +1,11 @@
 index:
      path: /
-     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\DefaultController::index
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\SearchMovieController::index
 
 get_movie_test:
      path: /getmovietest
-     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\DefaultController::getMovie
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\SearchMovieController::getMovie
 
+import_movie:
+     path: /importmovie
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\ImportMovieController::importMovie
