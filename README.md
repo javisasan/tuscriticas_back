@@ -2,6 +2,7 @@ URLs:
 
 http://localhost/getmovietest?title=akira
 http://localhost/importmovie?id=404579
+http://localhost/movie/akira
 
 Movies for testing:
 
