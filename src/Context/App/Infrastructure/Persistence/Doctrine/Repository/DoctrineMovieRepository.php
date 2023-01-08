@@ -18,9 +18,19 @@ class DoctrineMovieRepository extends ServiceEntityRepository implements MovieRe
         $this->entityManager = $this->getEntityManager();
     }
 
+    public function getMovieById(string $id)
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
+
     public function getMovieBySlug(string $slug)
     {
         return $this->findOneBy(['slug' => $slug]);
+    }
+
+    public function getMovieByProviderId(string $providerId)
+    {
+        return $this->findOneBy(['providerId' => $providerId]);
     }
 
     public function save(Movie $movie): void

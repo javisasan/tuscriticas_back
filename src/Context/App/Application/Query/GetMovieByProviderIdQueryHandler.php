@@ -2,11 +2,10 @@
 
 namespace CommonPlatform\Context\App\Application\Query;
 
-use CommonPlatform\Context\App\Domain\Entity\Movie;
 use CommonPlatform\Context\App\Domain\Repository\MovieRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class GetMovieBySlugQueryHandler
+class GetMovieByProviderIdQueryHandler
 {
     private MovieRepositoryInterface $repository;
 
@@ -15,9 +14,9 @@ class GetMovieBySlugQueryHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(GetMovieBySlugQuery $query): GetMovieQueryHandlerResponse
+    public function __invoke(GetMovieByProviderIdQuery $query): GetMovieQueryHandlerResponse
     {
-        $movie = $this->repository->getMovieBySlug($query->getSlug());
+        $movie = $this->repository->getMovieByProviderId($query->getProviderId());
 
         if (empty($movie)) {
             throw new NotFoundHttpException();

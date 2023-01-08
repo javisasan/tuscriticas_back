@@ -1,12 +1,11 @@
 <?php
 
-namespace CommonPlatform\Context\App\Application\Query;
+namespace CommonPlatform\Context\App\Application\Command;
 
 use CommonPlatform\Context\App\Domain\Entity\Movie;
 use CommonPlatform\Context\App\Domain\Repository\MovieRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class GetMovieBySlugQueryHandler
+class AddMovieViewCommandHandler
 {
     private MovieRepositoryInterface $repository;
 
@@ -15,14 +14,17 @@ class GetMovieBySlugQueryHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(GetMovieBySlugQuery $query): GetMovieQueryHandlerResponse
+    public function __invoke(AddMovieViewCommand $command): void
     {
-        $movie = $this->repository->getMovieBySlug($query->getSlug());
+        /** @var Movie */
+        $movie = $this->repository->getMovieBySlug($command->getSlug());
 
         if (empty($movie)) {
             throw new NotFoundHttpException();
         }
         
-        return new GetMovieQueryHandlerResponse($movie);
+        // Move to a command
+        $movie->increaseViews();
+        $this->repository->save($movie);
     }
 }

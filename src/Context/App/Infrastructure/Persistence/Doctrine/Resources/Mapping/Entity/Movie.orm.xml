@@ -25,6 +25,7 @@
                 <option name="fixed"/>
             </options>
         </field>
+        <field name="timesViewed" type="integer" column="times_viewed" nullable="false" />
     </entity>
 </doctrine-mapping>
 

@@ -16,6 +16,7 @@ class Movie
     private string $image;
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
+    private int $timesViewed;
 
     private function __construct(
         MovieId $id,
@@ -27,7 +28,8 @@ class Movie
         string $overview,
         string $image,
         \DateTime $createdAt,
-        \DateTime $updatedAt
+        \DateTime $updatedAt,
+        int $timesViewed
     )
     {
         $this->id = $id;
@@ -40,6 +42,7 @@ class Movie
         $this->image = $image;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->timesViewed = $timesViewed;
     }
 
     public static function create(
@@ -61,7 +64,8 @@ class Movie
             $overview,
             $image,
             new \DateTime(),
-            new \DateTime()
+            new \DateTime(),
+            0
         );
     }
 
@@ -123,6 +127,19 @@ class Movie
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
+    }
+
+    public function getTimesViewed(): int
+    {
+        return $this->timesViewed;
+    }
+
+    // Actions
+    public function increaseViews(): Movie
+    {
+        $this->timesViewed ++;
+
+        return $this;
     }
 }
 

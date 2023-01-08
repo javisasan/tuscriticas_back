@@ -12,4 +12,4 @@ import_movie:
 
 get_movie_by_slug:
      path: /movie/{slug}
-     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\GetMovieController::getMovie
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\MovieController::getMovie
