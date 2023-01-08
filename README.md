@@ -1,3 +1,8 @@
+URLs:
+
+http://localhost/getmovietest?title=akira
+http://localhost/importmovie?id=404579
+
 Movies for testing:
 
 - 149: Akira
