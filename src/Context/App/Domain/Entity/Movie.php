@@ -14,9 +14,10 @@ class Movie
     private \DateTime $releaseDate;
     private string $overview;
     private string $image;
+    private int $timesViewed;
+    private ?float $averageRate;
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
-    private int $timesViewed;
 
     private function __construct(
         MovieId $id,
@@ -27,9 +28,10 @@ class Movie
         \DateTime $releaseDate,
         string $overview,
         string $image,
+        int $timesViewed,
+        ?float $averageRate,
         \DateTime $createdAt,
-        \DateTime $updatedAt,
-        int $timesViewed
+        \DateTime $updatedAt
     )
     {
         $this->id = $id;
@@ -40,9 +42,10 @@ class Movie
         $this->releaseDate = $releaseDate;
         $this->overview = $overview;
         $this->image = $image;
+        $this->timesViewed = $timesViewed;
+        $this->averageRate = $averageRate;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
-        $this->timesViewed = $timesViewed;
     }
 
     public static function create(
@@ -63,9 +66,10 @@ class Movie
             $releaseDate,
             $overview,
             $image,
+            0,
+            0.0,
             new \DateTime(),
-            new \DateTime(),
-            0
+            new \DateTime()
         );
     }
 
@@ -119,6 +123,16 @@ class Movie
         return $this->image;
     }
 
+    public function getTimesViewed(): int
+    {
+        return $this->timesViewed;
+    }
+
+    public function getAverageRate(): ?float
+    {
+        return $this->averageRate;
+    }
+
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
@@ -127,11 +141,6 @@ class Movie
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
-    }
-
-    public function getTimesViewed(): int
-    {
-        return $this->timesViewed;
     }
 
     // Actions

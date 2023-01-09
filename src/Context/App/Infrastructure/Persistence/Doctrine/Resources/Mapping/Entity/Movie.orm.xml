@@ -15,6 +15,8 @@
         </field>
         <field name="overview" type="text" column="overview" nullable="false" />
         <field name="image" type="string" column="image" length="128" nullable="false" />
+        <field name="timesViewed" type="integer" column="times_viewed" nullable="false" />
+        <field name="averageRate" type="float" column="average_rate" nullable="false" />
         <field name="createdAt" type="datetime" column="created_at" nullable="false">
             <options>
                 <option name="fixed"/>
@@ -25,7 +27,6 @@
                 <option name="fixed"/>
             </options>
         </field>
-        <field name="timesViewed" type="integer" column="times_viewed" nullable="false" />
     </entity>
 </doctrine-mapping>
 

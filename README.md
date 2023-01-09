@@ -13,6 +13,7 @@ Movies for testing:
 
 Todo:
 - Remove ".[]{}()" from slug
-- Add Redis
+- Add Supervisor
 - Add Rabbit
+- Add Redis
 - Add Elastic
