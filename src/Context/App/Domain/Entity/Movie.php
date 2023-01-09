@@ -15,7 +15,7 @@ class Movie
     private string $overview;
     private string $image;
     private int $timesViewed;
-    private ?float $averageRate;
+    private int $averageRate;
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
 
@@ -29,7 +29,7 @@ class Movie
         string $overview,
         string $image,
         int $timesViewed,
-        ?float $averageRate,
+        int $averageRate,
         \DateTime $createdAt,
         \DateTime $updatedAt
     )
@@ -67,7 +67,7 @@ class Movie
             $overview,
             $image,
             0,
-            0.0,
+            0,
             new \DateTime(),
             new \DateTime()
         );
@@ -128,7 +128,7 @@ class Movie
         return $this->timesViewed;
     }
 
-    public function getAverageRate(): ?float
+    public function getAverageRate(): int
     {
         return $this->averageRate;
     }
