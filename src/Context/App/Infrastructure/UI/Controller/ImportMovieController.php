@@ -3,6 +3,9 @@
 namespace CommonPlatform\Context\App\Infrastructure\UI\Controller;
 
 use CommonPlatform\Context\App\Application\Command\CreateMovieCommand;
+use CommonPlatform\Context\App\Application\Query\GetMovieByProviderIdQuery;
+use CommonPlatform\Context\App\Domain\Entity\Movie;
+use CommonPlatform\SharedKernel\Infrastructure\Messenger\Bus\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,10 +14,12 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class ImportMovieController extends AbstractController
 {
-    private MessageBusInterface $messageBus;
+    private MessageBusInterface $bus;
+    private QueryBus $messageBus;
 
-    public function __construct(MessageBusInterface $messageBus)
+    public function __construct(MessageBusInterface $bus, QueryBus $messageBus)
     {
+        $this->bus = $bus;
         $this->messageBus = $messageBus;
     }
 
@@ -27,10 +32,21 @@ class ImportMovieController extends AbstractController
     {
         $providerId = $request->query->get('id');
 
-        $this->messageBus->dispatch(
+        $this->bus->dispatch(
             new CreateMovieCommand($providerId)
         );
 
-        return new JsonResponse(['status' => 'ok']);
+        $response = $this->messageBus->dispatch(
+            new GetMovieByProviderIdQuery($providerId)
+        );
+
+        /** @var Movie */
+        $movie = $response->getMovie();
+
+        return new JsonResponse([
+            'id' => $movie->getId(),
+            'slug' => $movie->getSlug(),
+            'providerId' => $movie->getProviderId()
+        ]);
     }
 }

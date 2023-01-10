@@ -9,3 +9,7 @@ get_movie_test:
 import_movie:
      path: /importmovie
      controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\ImportMovieController::importMovie
+
+get_movie_by_slug:
+     path: /movie/{slug}
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\MovieController::getMovie

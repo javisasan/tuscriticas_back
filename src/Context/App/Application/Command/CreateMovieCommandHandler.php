@@ -34,12 +34,6 @@ class CreateMovieCommandHandler
             $response->getOverview(),
             $response->getImage()
         );
-        
-        /*
-        dd($movie);
-        dd($movie->getId());
-        dd($movie->getTitle());
-         */
 
         $this->movieRepository->save($movie);
     }
