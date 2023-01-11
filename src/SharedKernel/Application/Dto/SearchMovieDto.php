@@ -7,7 +7,7 @@ class SearchMovieDto
     private string $id;
     private string $title;
     private string $originalTitle;
-    private \DateTime $releaseDate;
+    private ?\DateTime $releaseDate;
     private ?string $overview;
     private ?string $image;
 
@@ -15,14 +15,14 @@ class SearchMovieDto
         string $id,
         string $title,
         string $originalTitle,
-        string $releaseDate,
+        ?string $releaseDate,
         ?string $overview,
         ?string $image
     ){
         $this->id = $id;
         $this->title = $title;
         $this->originalTitle = $originalTitle;
-        $this->releaseDate = new \DateTime($releaseDate);
+        $this->releaseDate = !empty($releaseDate) ? new \DateTime($releaseDate) : null;
         $this->overview = $overview;
         $this->image = $image;
     }
@@ -42,7 +42,7 @@ class SearchMovieDto
         return $this->originalTitle;
     }
 
-    public function getReleaseDate(): \DateTime
+    public function getReleaseDate(): ?\DateTime
     {
         return $this->releaseDate;
     }

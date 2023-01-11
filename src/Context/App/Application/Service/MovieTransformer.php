@@ -16,13 +16,15 @@ class MovieTransformer implements ResponseTransformer
 
     public function transform(): array
     {
+        $releaseDate = empty($this->movie->getReleaseDate()) ? null : $this->movie->getReleaseDate()->format('Y-m-d');
+
         return [
             'id' => $this->movie->getId(),
             'slug' => $this->movie->getSlug(),
             'title' => $this->movie->getTitle(),
             'originalTitle' => $this->movie->getOriginalTitle(),
             'providerId' => $this->movie->getProviderId(),
-            'releaseDate' => $this->movie->getReleaseDate()->format('Y-m-d'),
+            'releaseDate' => $releaseDate,
             'overview' => $this->movie->getOverview(),
             'image' => $this->movie->getImage(),
             'timesViewed' => $this->movie->getTimesViewed(),
