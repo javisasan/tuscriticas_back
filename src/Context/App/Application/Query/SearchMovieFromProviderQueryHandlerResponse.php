@@ -43,11 +43,12 @@ class SearchMovieFromProviderQueryHandlerResponse
 
         if (!empty($this->data)) {
             foreach ($this->data as $movie) {
+                $releaseDate = !empty($movie->getReleaseDate()) ? $movie->getReleaseDate()->format('Y-m-d') : null;
                 $movieList[] = [
                     'external_id' => $movie->getId(),
                     'title' => $movie->getTitle(),
                     'original_title' => $movie->getOriginalTitle(),
-                    'release_date' => $movie->getReleaseDate()->format('Y-m-d'),
+                    'release_date' => $releaseDate,
                     'overview' => $movie->getOverview(),
                     'image' => $movie->getImage(),
                 ];

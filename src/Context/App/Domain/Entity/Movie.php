@@ -11,9 +11,9 @@ class Movie
     private string $title;
     private string $originalTitle;
     private string $providerId;
-    private \DateTime $releaseDate;
+    private ?\DateTime $releaseDate;
     private string $overview;
-    private string $image;
+    private ?string $image;
     private int $timesViewed;
     private int $averageRate;
     private \DateTime $createdAt;
@@ -25,9 +25,9 @@ class Movie
         string $title,
         string $originalTitle,
         string $providerId,
-        \DateTime $releaseDate,
+        ?\DateTime $releaseDate,
         string $overview,
-        string $image,
+        ?string $image,
         int $timesViewed,
         int $averageRate,
         \DateTime $createdAt,
@@ -52,9 +52,9 @@ class Movie
         string $title,
         string $originalTitle,
         string $providerId,
-        \DateTime $releaseDate,
+        ?\DateTime $releaseDate,
         string $overview,
-        string $image
+        ?string $image
     ): self
     {
         return new self(
@@ -79,6 +79,7 @@ class Movie
         $search = ['á','é','í','ó','ú','à','è','ì','ò','ù','ä','ë','ï','ö','ü','â','ê','î','ô','û'];
         $replace = ['a','e','i','o','u','a','e','i','o','u','a','e','i','o','u','a','e','i','o','u'];
         $tmpSlug = str_replace($search, $replace, $tmpSlug);
+        $tmpSlug = str_replace('&', 'and', $tmpSlug);
 
         $slug = '';
         for ($i = 0 ; $i < strlen($tmpSlug) ; $i++) {
@@ -119,7 +120,7 @@ class Movie
         return $this->providerId;
     }
 
-    public function getReleaseDate(): \DateTime
+    public function getReleaseDate(): ?\DateTime
     {
         return $this->releaseDate;
     }
@@ -129,7 +130,7 @@ class Movie
         return $this->overview;
     }
 
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }
