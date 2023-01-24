@@ -18,17 +18,44 @@ class DoctrineMovieRepository extends ServiceEntityRepository implements MovieRe
         $this->entityManager = $this->getEntityManager();
     }
 
-    public function getMovieById(string $id)
+    public function getLatestMoviesOld(int $page, int $itemsPerPage): array
+    {
+        $sql = "SELECT * FROM movies m ORDER BY m.created_at DESC";
+        $stmt = $this->entityManager->getConnection()->prepare($sql);
+        $result = $stmt->executeQuery();
+        $queryResponse = $result->fetchAllAssociative();
+        dd($queryResponse);
+
+        return $queryResponse;
+    }
+
+    public function getLatestMovies(int $page, int $itemsPerPage): array
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+
+        $qb->select('m')
+            ->from(Movie::class, 'm')
+            ->orderBy('m.createdAt', 'DESC')
+            ->setFirstResult(($page - 1) * $itemsPerPage)
+            ->setMaxResults($itemsPerPage);
+
+        $query = $qb->getQuery();
+        $queryResponse = $query->getResult();
+
+        return $queryResponse;
+    }
+
+    public function getMovieById(string $id): Movie
     {
         return $this->findOneBy(['id' => $id]);
     }
 
-    public function getMovieBySlug(string $slug)
+    public function getMovieBySlug(string $slug): Movie
     {
         return $this->findOneBy(['slug' => $slug]);
     }
 
-    public function getMovieByProviderId(string $providerId)
+    public function getMovieByProviderId(string $providerId): Movie
     {
         return $this->findOneBy(['providerId' => $providerId]);
     }
@@ -39,4 +66,3 @@ class DoctrineMovieRepository extends ServiceEntityRepository implements MovieRe
         $this->entityManager->flush();
     }
 }
-

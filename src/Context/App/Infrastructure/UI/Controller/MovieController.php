@@ -3,7 +3,9 @@
 namespace CommonPlatform\Context\App\Infrastructure\UI\Controller;
 
 use CommonPlatform\Context\App\Application\Command\AddMovieViewCommand;
+use CommonPlatform\Context\App\Application\Query\GetLatestMoviesQuery;
 use CommonPlatform\Context\App\Application\Query\GetMovieBySlugQuery;
+use CommonPlatform\Context\App\Application\Service\MovieListTransformer;
 use CommonPlatform\Context\App\Application\Service\MovieTransformer;
 use CommonPlatform\SharedKernel\Infrastructure\Messenger\Bus\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +35,16 @@ class MovieController extends AbstractController
         );
 
         $transformer = new MovieTransformer($response->getMovie());
+        return new JsonResponse($transformer->transform());
+    }
+
+    public function getLatestMovies(): Response
+    {
+        $response = $this->messageBus->dispatch(
+            new GetLatestMoviesQuery()
+        );
+
+        $transformer = new MovieListTransformer($response->getMovies());
         return new JsonResponse($transformer->transform());
     }
 }

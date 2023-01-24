@@ -3,6 +3,7 @@ URLs:
 http://localhost/getmovietest?title=akira
 http://localhost/importmovie?id=149
 http://localhost/movie/akira
+http://localhost/latest
 
 Movies for testing:
 

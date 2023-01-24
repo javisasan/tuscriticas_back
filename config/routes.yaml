@@ -13,3 +13,7 @@ import_movie:
 get_movie_by_slug:
      path: /movie/{slug}
      controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\MovieController::getMovie
+
+get_latest_movies:
+     path: /latest
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\MovieController::getLatestMovies
