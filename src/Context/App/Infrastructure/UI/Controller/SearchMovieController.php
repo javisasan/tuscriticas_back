@@ -20,7 +20,7 @@ class SearchMovieController extends AbstractController
 
     public function index(): Response
     {
-        return new JsonResponse(['status' => 'ok', 'hola' => 'hola mundo']);
+        return new JsonResponse(['status' => 'ok', 'message' => 'hello world']);
     }
 
     public function getMovie(Request $request): Response

@@ -14,10 +14,13 @@ help:
 	@echo "usage: make <command>"
 	@echo
 	@echo "commands:"
-	@echo "    shell            - create docker container and enter the container"
+	@echo "    dev              - raise dev environment"
+	@echo "    shell            - enter the container"
 	@echo "    test             - run tests"
-	@echo "    cover            - run tests and creates code coverage report"
 	@echo
+
+dev:
+	@docker compose up -d
 
 shell:
 	@docker exec -ti $(CONTAINER) bash

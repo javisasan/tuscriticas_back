@@ -50,12 +50,12 @@ class DoctrineMovieRepository extends ServiceEntityRepository implements MovieRe
         return $this->findOneBy(['id' => $id]);
     }
 
-    public function getMovieBySlug(string $slug): Movie
+    public function getMovieBySlug(string $slug): ?Movie
     {
         return $this->findOneBy(['slug' => $slug]);
     }
 
-    public function getMovieByProviderId(string $providerId): Movie
+    public function getMovieByProviderId(string $providerId): ?Movie
     {
         return $this->findOneBy(['providerId' => $providerId]);
     }
