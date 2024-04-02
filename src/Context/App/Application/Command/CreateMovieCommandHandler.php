@@ -4,6 +4,7 @@ namespace CommonPlatform\Context\App\Application\Command;
 
 use CommonPlatform\Context\App\Domain\Entity\Movie;
 use CommonPlatform\Context\App\Domain\Repository\MovieRepositoryInterface;
+use CommonPlatform\Context\App\Domain\Service\TitleSlugService;
 use CommonPlatform\SharedKernel\Application\Repository\ProviderRepositoryInterface;
 
 class CreateMovieCommandHandler
@@ -25,9 +26,18 @@ class CreateMovieCommandHandler
             return;
         }
 
+        if ($this->movieRepository->getMovieByProviderId($response->getId())) {
+            return;
+        }
+
+        $titleSlug = new TitleSlugService($response->getTitle());
+
+        $existingMovie = $this->movieRepository->getMovieBySlug($titleSlug->getSlug());
+
         /** @var Movie */
         $movie = Movie::create(
             $response->getTitle(),
+            !$existingMovie ? $titleSlug->getSlug() : $titleSlug->getSlugWithRandomHash(),
             $response->getOriginalTitle(),
             $response->getId(),
             $response->getReleaseDate(),

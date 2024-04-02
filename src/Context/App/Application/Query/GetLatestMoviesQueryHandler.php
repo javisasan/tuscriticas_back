@@ -3,7 +3,6 @@
 namespace CommonPlatform\Context\App\Application\Query;
 
 use CommonPlatform\Context\App\Domain\Repository\MovieRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GetLatestMoviesQueryHandler
 {
@@ -19,7 +18,7 @@ class GetLatestMoviesQueryHandler
         $movies = $this->repository->getLatestMovies($query->getPage(), $query->getItemsPerPage());
 
         if (empty($movies)) {
-            throw new NotFoundHttpException();
+            return new GetLatestMoviesQueryHandlerResponse([]);
         }
         
         return new GetLatestMoviesQueryHandlerResponse($movies);

@@ -11,6 +11,8 @@
 
 ###> other ###
 /.idea/
+*.swp
+*.swo
 ###< other ###
 
 ###> symfony/phpunit-bridge ###

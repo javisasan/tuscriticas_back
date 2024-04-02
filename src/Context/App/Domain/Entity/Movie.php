@@ -50,6 +50,7 @@ class Movie
 
     public static function create(
         string $title,
+        string $titleSlug,
         string $originalTitle,
         string $providerId,
         ?\DateTime $releaseDate,
@@ -59,7 +60,7 @@ class Movie
     {
         return new self(
             new MovieId(),
-            self::createSlugFromTitle($title),
+            $titleSlug,
             $title,
             $originalTitle,
             $providerId,
@@ -71,28 +72,6 @@ class Movie
             new \DateTime(),
             new \DateTime()
         );
-    }
-
-    private static function createSlugFromTitle(string $title): string
-    {
-        $tmpSlug = str_replace(' ', '-', strtolower($title));
-        $search = ['á','é','í','ó','ú','à','è','ì','ò','ù','ä','ë','ï','ö','ü','â','ê','î','ô','û'];
-        $replace = ['a','e','i','o','u','a','e','i','o','u','a','e','i','o','u','a','e','i','o','u'];
-        $tmpSlug = str_replace($search, $replace, $tmpSlug);
-        $tmpSlug = str_replace('&', 'and', $tmpSlug);
-
-        $slug = '';
-        for ($i = 0 ; $i < strlen($tmpSlug) ; $i++) {
-            $char = substr($tmpSlug, $i, 1);
-            if (ord($char) == 45 || (ord($char) >= 48 && ord($char) <= 57)) {
-                $slug .= substr($tmpSlug, $i, 1);
-            }
-            if ((ord($char) >= 65 && ord($char) <= 90) || (ord($char) >= 97 && ord($char) <= 122)) {
-                $slug .= substr($tmpSlug, $i, 1);
-            }
-        }
-
-        return $slug;
     }
 
     public function getId(): string
