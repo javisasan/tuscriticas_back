@@ -9,7 +9,7 @@ use TMDb;
 
 class TmdbApiRepository implements ProviderRepositoryInterface
 {
-    private $handler;
+    private ?TMDb $handler = null;
 
     private function initHandler(): void
     {
@@ -52,13 +52,18 @@ class TmdbApiRepository implements ProviderRepositoryInterface
             return null;
         }
 
+        $profileImagePath = $this->handler->getImageUrl($searchResponse['poster_path'], TMDb::IMAGE_PROFILE, 'w185');
+        $backdropImagePath = $this->handler->getImageUrl($searchResponse['backdrop_path'], TMDb::IMAGE_BACKDROP, 'w780');
+
+
         return new SearchMovieDto(
             $searchResponse['id'],
             $searchResponse['title'],
             $searchResponse['original_title'],
             $searchResponse['release_date'],
             $searchResponse['overview'],
-            $searchResponse['poster_path'],
+            $profileImagePath,
+            $backdropImagePath,
         );
     }
 }

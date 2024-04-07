@@ -9,7 +9,8 @@ class SearchMovieDto
     private string $originalTitle;
     private ?\DateTime $releaseDate;
     private ?string $overview;
-    private ?string $image;
+    private ?string $profileImagePath;
+    private ?string $backdropImagePath;
 
     public function __construct(
         string $id,
@@ -17,14 +18,16 @@ class SearchMovieDto
         string $originalTitle,
         ?string $releaseDate,
         ?string $overview,
-        ?string $image
+        ?string $profileImagePath,
+        ?string $backdropImagePath
     ){
         $this->id = $id;
         $this->title = $title;
         $this->originalTitle = $originalTitle;
         $this->releaseDate = !empty($releaseDate) ? new \DateTime($releaseDate) : null;
         $this->overview = $overview;
-        $this->image = $image;
+        $this->profileImagePath = $profileImagePath;
+        $this->backdropImagePath = $backdropImagePath;
     }
 
     public function getId(): string
@@ -52,8 +55,13 @@ class SearchMovieDto
         return $this->overview;
     }
 
-    public function getImage(): ?string
+    public function getProfileImagePath(): ?string
     {
-        return $this->image;
+        return $this->profileImagePath;
+    }
+
+    public function getBackdropImagePath(): ?string
+    {
+        return $this->backdropImagePath;
     }
 }

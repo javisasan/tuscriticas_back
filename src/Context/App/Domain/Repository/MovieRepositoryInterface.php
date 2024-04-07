@@ -12,4 +12,3 @@ interface MovieRepositoryInterface
     public function getMovieByProviderId(string $providerId): ?Movie;
     public function save(Movie $movie): void;
 }
-

@@ -6,7 +6,7 @@
         <id name="id" type="string" column="id" length="36" nullable="false" />
         <field name="slug" type="string" column="slug" length="128" nullable="false" />
         <field name="title" type="string" column="title" length="128" nullable="false" />
-        <field name="originalTitle" type="string" column="original_title" length="128" nullable="false" charset="tf8mb4" />
+        <field name="originalTitle" type="string" column="original_title" length="128" nullable="false" charset="utf8mb4" />
         <field name="providerId" type="string" column="provider_id" length="8" nullable="false" />
         <field name="releaseDate" type="date" column="release_date" nullable="true">
             <options>
@@ -14,7 +14,16 @@
             </options>
         </field>
         <field name="overview" type="text" column="overview" nullable="false" />
-        <field name="image" type="string" column="image" length="128" nullable="true" />
+                <!--<field name="profileImage" type="string" column="profile_image" length="128" nullable="true" />-->
+
+        <!--<one-to-one field="profileImage" target-entity="Image" mapped-by="movieId" />-->
+        <one-to-one field="profileImage" target-entity="Image">
+            <join-column name="profile_image" referenced-column-name="id" />
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
+
         <field name="timesViewed" type="integer" column="times_viewed" nullable="false" />
         <field name="averageRate" type="integer" column="average_rate" nullable="false" />
         <field name="createdAt" type="datetime" column="created_at" nullable="false">
