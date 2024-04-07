@@ -31,7 +31,7 @@ class MovieListTransformer implements ResponseTransformer
                     'providerId' => $movie->getProviderId(),
                     'releaseDate' => $releaseDate,
                     'overview' => $movie->getOverview(),
-                    'image' => $movie->getImage(),
+                    'profileImage' => $movie->getProfileImage(),
                     'timesViewed' => $movie->getTimesViewed(),
                     'averageRate' => $movie->getAverageRate(),
                     'createdAt' => $movie->getCreatedAt()->format('Y-m-d H:i:s'),

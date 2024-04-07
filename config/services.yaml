@@ -40,7 +40,6 @@ services:
         class: 'CommonPlatform\SharedKernel\Infrastructure\Messenger\Bus\QueryBus'
         public: true
 
-
     app_command_handlers:
         namespace: CommonPlatform\Context\App\Application\Command\
         resource: '%kernel.project_dir%/src/Context/App/Application/Command/*CommandHandler.php'
@@ -69,5 +68,3 @@ services:
         namespace: CommonPlatform\SharedKernel\Infrastructure\TmdbApi\Repository\
         resource: '%kernel.project_dir%/src/SharedKernel/Infrastructure/TmdbApi/Repository/*Repository.php'
         public: true
-
-

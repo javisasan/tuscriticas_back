@@ -13,7 +13,7 @@ class Movie
     private string $providerId;
     private ?\DateTime $releaseDate;
     private string $overview;
-    private ?string $image;
+    private ?Image $profileImage;
     private int $timesViewed;
     private int $averageRate;
     private \DateTime $createdAt;
@@ -27,7 +27,7 @@ class Movie
         string $providerId,
         ?\DateTime $releaseDate,
         string $overview,
-        ?string $image,
+        ?Image $profileImage,
         int $timesViewed,
         int $averageRate,
         \DateTime $createdAt,
@@ -41,7 +41,7 @@ class Movie
         $this->providerId = $providerId;
         $this->releaseDate = $releaseDate;
         $this->overview = $overview;
-        $this->image = $image;
+        $this->profileImage = $profileImage;
         $this->timesViewed = $timesViewed;
         $this->averageRate = $averageRate;
         $this->createdAt = $createdAt;
@@ -55,7 +55,7 @@ class Movie
         string $providerId,
         ?\DateTime $releaseDate,
         string $overview,
-        ?string $image
+        Image $profileImage
     ): self
     {
         return new self(
@@ -66,7 +66,7 @@ class Movie
             $providerId,
             $releaseDate,
             $overview,
-            $image,
+            $profileImage,
             0,
             0,
             new \DateTime(),
@@ -109,9 +109,14 @@ class Movie
         return $this->overview;
     }
 
-    public function getImage(): ?string
+    public function getProfileImage(): ?Image
     {
-        return $this->image;
+        return $this->profileImage;
+    }
+
+    public function setProfileImage(Image $image): void
+    {
+        $this->profileImage = $image;
     }
 
     public function getTimesViewed(): int
@@ -142,4 +147,3 @@ class Movie
         return $this;
     }
 }
-
