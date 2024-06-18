@@ -1,8 +1,8 @@
 version: "3"
 services:
   db:
-    image: "mysql:5.7"
-    #image: "arm64v8/mysql"
+    #image: "mysql:5.7"
+    image: "arm64v8/mysql"
     container_name: tcdb
     restart: unless-stopped
     environment:
@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     container_name: tc_apache
     ports:
-      - "80:80"
+      - "8080:80"
     # Uncomment volumes section for development
     volumes:
       - "./:/app"

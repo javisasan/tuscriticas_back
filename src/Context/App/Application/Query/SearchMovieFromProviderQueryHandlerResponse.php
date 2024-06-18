@@ -50,7 +50,8 @@ class SearchMovieFromProviderQueryHandlerResponse
                     'original_title' => $movie->getOriginalTitle(),
                     'release_date' => $releaseDate,
                     'overview' => $movie->getOverview(),
-                    'image' => $movie->getImage(),
+                    //'image' => $movie->getImage(),
+                    'image' => $movie->getProfileImagePath(),
                 ];
             }
         }

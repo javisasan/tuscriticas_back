@@ -22,6 +22,9 @@ help:
 dev:
 	@docker compose up -d
 
+nodev:
+	@docker compose down
+
 shell:
 	@docker exec -ti $(CONTAINER) bash
 

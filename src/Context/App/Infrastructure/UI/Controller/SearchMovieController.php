@@ -37,7 +37,8 @@ class SearchMovieController extends AbstractController
         );
 
         #foreach ($searchMovieList->getData() as $movie) {
-        #    echo '<img src= "https://www.themoviedb.org/t/p/w220_and_h330_face/' . $movie->getImage() . '" /><br><br>';
+        #    //echo '<img src= "https://www.themoviedb.org/t/p/w220_and_h330_face/' . $movie->getProfileImagePath() . '" /><br><br>';
+        #    echo '<img src= "https://media.themoviedb.org/t/p/w94_and_h141_bestv2/' . $movie->getProfileImagePath() . '" /><br><br>';
         #}die;
 
         return new JsonResponse($searchMovieList->toArray());
