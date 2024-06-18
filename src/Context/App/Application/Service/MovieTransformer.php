@@ -26,7 +26,7 @@ class MovieTransformer implements ResponseTransformer
             'providerId' => $this->movie->getProviderId(),
             'releaseDate' => $releaseDate,
             'overview' => $this->movie->getOverview(),
-            'profileImage' => $this->movie->getProfileImage(),
+            'profileImage' => $this->movie->getProfileImage()->getPath(),
             'timesViewed' => $this->movie->getTimesViewed(),
             'averageRate' => $this->movie->getAverageRate(),
             'createdAt' => $this->movie->getCreatedAt()->format('Y-m-d H:i:s'),

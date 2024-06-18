@@ -35,6 +35,7 @@ class TmdbApiRepository implements ProviderRepositoryInterface
                     $movie['release_date'] ?? null,
                     $movie['overview'],
                     $movie['poster_path'],
+                    null,
                 );
             }
         }
