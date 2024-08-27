@@ -3,6 +3,7 @@
 namespace CommonPlatform\Context\App\Infrastructure\UI\Controller;
 
 use CommonPlatform\Context\App\Application\Query\SearchMovieFromProviderQuery;
+use CommonPlatform\Context\App\Application\Query\SearchMovieQuery;
 use CommonPlatform\SharedKernel\Infrastructure\Messenger\Bus\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,7 +24,22 @@ class SearchMovieController extends AbstractController
         return new JsonResponse(['status' => 'ok', 'message' => 'hello world']);
     }
 
-    public function getMovie(Request $request): Response
+    public function searchMovie(Request $request): Response
+    {
+        $title = $request->query->get('title');
+
+        if (empty($title)) {
+            return new JsonResponse();
+        }
+
+        $searchMovieList= $this->messageBus->dispatch(
+            new SearchMovieQuery($title)
+        );
+
+        return new JsonResponse($searchMovieList->toArray());
+    }
+
+    public function searchMovieFromProvider(Request $request): Response
     {
         $title = $request->query->get('title');
         $page = $request->query->get('page') ?? 1;

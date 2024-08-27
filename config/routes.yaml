@@ -2,9 +2,13 @@ index:
      path: /
      controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\SearchMovieController::index
 
-get_movie_test:
-     path: /getmovietest
-     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\SearchMovieController::getMovie
+search_movie:
+     path: /search
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\SearchMovieController::searchMovie
+
+search_movie_from_provider:
+     path: /search/provider
+     controller: CommonPlatform\Context\App\Infrastructure\UI\Controller\SearchMovieController::searchMovieFromProvider
 
 import_movie:
      path: /importmovie

@@ -41,21 +41,21 @@ class CreateMovieCommandHandler
 
         $existingMovie = $this->movieRepository->getMovieBySlug($titleSlug->getSlug());
 
-        $profileImage = Image::create($response->getProfileImagePath());
-
         /** @var Movie */
         $movie = Movie::create(
             $response->getTitle(),
             !$existingMovie ? $titleSlug->getSlug() : $titleSlug->getSlugWithRandomHash(),
             $response->getOriginalTitle(),
             $response->getId(),
-            $response->getReleaseDate(),
             $response->getOverview(),
-            $profileImage
+            $response->getReleaseDate(),
+            null
         );
 
+        $localProfileImagePath = $this->imageRepository->downloadProfileImageAndGetPath($response->getProfileImagePath(), $titleSlug->getSlug());
+        $profileImage = Image::create($localProfileImagePath);
 
-        //$movie->setProfileImage($profileImage);
+        $movie->setProfileImage($profileImage);
 
         $this->movieRepository->save($movie);
     }

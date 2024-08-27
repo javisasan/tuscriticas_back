@@ -25,8 +25,8 @@ class Movie
         string $title,
         string $originalTitle,
         string $providerId,
-        ?\DateTime $releaseDate,
         string $overview,
+        ?\DateTime $releaseDate,
         ?Image $profileImage,
         int $timesViewed,
         int $averageRate,
@@ -39,9 +39,9 @@ class Movie
         $this->title = $title;
         $this->originalTitle = $originalTitle;
         $this->providerId = $providerId;
-        $this->releaseDate = $releaseDate;
         $this->overview = $overview;
-        $this->profileImage = $profileImage;
+        $this->releaseDate = $releaseDate;
+        $this->profileImage = $profileImage ?? null;
         $this->timesViewed = $timesViewed;
         $this->averageRate = $averageRate;
         $this->createdAt = $createdAt;
@@ -53,9 +53,9 @@ class Movie
         string $titleSlug,
         string $originalTitle,
         string $providerId,
-        ?\DateTime $releaseDate,
         string $overview,
-        Image $profileImage
+        ?\DateTime $releaseDate,
+        ?Image $profileImage
     ): self
     {
         return new self(
@@ -64,8 +64,8 @@ class Movie
             $title,
             $originalTitle,
             $providerId,
-            $releaseDate,
             $overview,
+            $releaseDate,
             $profileImage,
             0,
             0,

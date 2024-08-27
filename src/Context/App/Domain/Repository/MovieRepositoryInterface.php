@@ -10,5 +10,6 @@ interface MovieRepositoryInterface
     public function getMovieById(string $id): Movie;
     public function getMovieBySlug(string $slug): ?Movie;
     public function getMovieByProviderId(string $providerId): ?Movie;
+    public function searchMovie(string $title): array;
     public function save(Movie $movie): void;
 }

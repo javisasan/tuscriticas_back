@@ -22,8 +22,6 @@ class MovieListTransformer implements ResponseTransformer
             /** @var Movie $movie */
             foreach ($this->movies as $movie) {
                 $releaseDate = empty($movie->getReleaseDate()) ? null : $movie->getReleaseDate()->format('Y-m-d');
-                $imagePath = $movie->getProfileImage()->getPath();
-                $rawImage = substr($imagePath, -(strrpos($imagePath, '/') + 1));
 
                 $transformedArray[] = [
                     'id' => $movie->getId(),
@@ -33,8 +31,7 @@ class MovieListTransformer implements ResponseTransformer
                     'providerId' => $movie->getProviderId(),
                     'releaseDate' => $releaseDate,
                     'overview' => $movie->getOverview(),
-                    'profileImage' => $movie->getProfileImage(),
-                    'rawImage' => $rawImage,
+                    'profileImage' => $movie->getProfileImage()->getPath(),
                     'timesViewed' => $movie->getTimesViewed(),
                     'averageRate' => $movie->getAverageRate(),
                     'createdAt' => $movie->getCreatedAt()->format('Y-m-d H:i:s'),
