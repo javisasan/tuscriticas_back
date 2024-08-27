@@ -53,8 +53,15 @@ class TmdbApiRepository implements ProviderRepositoryInterface
             return null;
         }
 
-        $profileImagePath = $this->handler->getImageUrl($searchResponse['poster_path'], TMDb::IMAGE_PROFILE, 'w185');
-        $backdropImagePath = $this->handler->getImageUrl($searchResponse['backdrop_path'], TMDb::IMAGE_BACKDROP, 'w780');
+        $profileImagePath = $backdropImagePath = null;
+
+        if ($searchResponse['poster_path']) {
+            $profileImagePath = $this->handler->getImageUrl($searchResponse['poster_path'], TMDb::IMAGE_PROFILE, 'w185');
+        }
+
+        if ($searchResponse['backdrop_path']) {
+            $backdropImagePath = $this->handler->getImageUrl($searchResponse['backdrop_path'], TMDb::IMAGE_BACKDROP, 'w780');
+        }
 
 
         return new SearchMovieDto(

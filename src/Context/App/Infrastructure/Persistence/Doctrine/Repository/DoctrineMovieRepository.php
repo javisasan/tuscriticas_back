@@ -2,10 +2,12 @@
 
 namespace CommonPlatform\Context\App\Infrastructure\Persistence\Doctrine\Repository;
 
+use CommonPlatform\Context\App\Domain\Entity\Image;
 use CommonPlatform\Context\App\Domain\Entity\Movie;
 use CommonPlatform\Context\App\Domain\Repository\MovieRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 class DoctrineMovieRepository extends ServiceEntityRepository implements MovieRepositoryInterface
@@ -58,6 +60,23 @@ class DoctrineMovieRepository extends ServiceEntityRepository implements MovieRe
     public function getMovieByProviderId(string $providerId): ?Movie
     {
         return $this->findOneBy(['providerId' => $providerId]);
+    }
+
+    public function searchMovie(string $title): array
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+
+        $qb->select('m.slug, m.title, m.releaseDate, i.path as image, m.averageRate')
+            ->from(Movie::class, 'm')
+            ->innerJoin(Image::class, 'i', 'WITH', $qb->expr()->eq('i.id', 'm.profileImage'))
+            ->andWhere('m.title LIKE :title')
+            ->setParameter('title', '%' . $title . '%')
+            ->setMaxResults(8);
+
+        $query = $qb->getQuery();
+        $queryResponse = $query->getResult();
+
+        return $queryResponse;
     }
 
     public function save(Movie $movie): void
