@@ -24,3 +24,8 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> images ###
+/public/images/movie/profile/
+!/public/images/movie/profile/.gitignore
+###< images ###

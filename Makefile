@@ -30,3 +30,6 @@ shell:
 
 test:
 	@docker exec $(CONTAINER) php bin/phpunit --stop-on-failure
+
+cache-clear:
+	@docker exec $(CONTAINER) php bin/console cache:clear
